@@ -22,7 +22,7 @@ gem 'responders'
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'simplecov'

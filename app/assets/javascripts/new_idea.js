@@ -11,10 +11,16 @@ function createIdea() {
       data:    ideaParams,
       success: function(newIdea) {
         renderIdea(newIdea)
+        resetForm();
       },
       error: function(xhr) {
         console.log(xhr.responseText)
       }
     })
   })
+};
+
+function resetForm(){
+  $('#idea-title').val('')
+  $('#idea-body').val('')
 };

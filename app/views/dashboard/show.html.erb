@@ -1,47 +1,39 @@
 <div class="container center">
   <br>
   <div class="row">
-    <div class="col s6" id="ideas-index"></div>
-    <div class="col s6">
-      <!-- BEGIN HERE -->
+    <!-- BEGIN HERE -->
 
-      <div class="row">
-        <form class="col s12">
-        <h4>Create Idea</h4>
-      <!-- TITLE INPUT -->
-         <div class="row">
-           <div class="input-field col s12">
-             <input id="idea-title" type="text" class="validate">
-             <label for="idea-title" data-error="wrong" data-success="right">Title</label>
-           </div>
+    <div class="row">
+      <form class="col s6 offset-s3 center">
+      <h4>Create Idea</h4>
+    <!-- TITLE INPUT -->
+       <div class="row">
+         <div class="input-field">
+           <input id="idea-title" type="text" class="validate">
+           <label for="idea-title" data-error="wrong" data-success="right">Title</label>
          </div>
+       </div>
 
-        <!-- BODY INPUT -->
-         <div class="row">
-           <div class="input-field col s12">
-             <input id="idea-body" type="text" class="validate">
-             <label for="idea-body" data-error="wrong" data-success="right">Body</label>
-           </div>
+      <!-- BODY INPUT -->
+       <div class="row">
+         <div class="input-field">
+           <input id="idea-body" type="text" class="validate">
+           <label for="idea-body" data-error="wrong" data-success="right">Body</label>
          </div>
+       </div>
 
-        <!-- QUALITY DROP DOWN MENU -->
-         <select class="browser-default" id="idea-quality">
-           <option value="0">Swill</option>
-           <option value="1">Plausible</option>
-           <option value="2">Genius</option>
-         </select>
+      <!-- SUBMIT BUTTON -->
+      <br>
+       <button class="btn waves-effect waves-light" id="create-idea" type="submit" name="action">Submit</button>
 
-        <!-- SUBMIT BUTTON -->
-        <br>
-         <button class="btn waves-effect waves-light" id="create-idea" type="submit" name="action">Submit</button>
-
-       </form>
-      </div>
-
-      <!-- STOP HERE -->
-
-
-
+     </form>
     </div>
+
+    <!-- STOP HERE -->
+
+  </div>
+  <div class="row">
+    <div class="col s6" id="ideas-index"></div>
+    <div class="col s6"></div>
   </div>
 </div>

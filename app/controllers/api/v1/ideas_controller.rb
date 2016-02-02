@@ -10,20 +10,20 @@ class Api::V1::IdeasController < ApplicationController
   end
 
   def create
+    respond_with Idea.create(idea_params)
   end
 
   def update
+    respond_with Idea.update(params[:id], idea_params)
   end
 
   def destroy
-    idea = Idea.find_by(idea_params)
-    idea.delete
-    respond_with true
+    respond_with Idea.delete(params[:id])
   end
 
   private
 
   def idea_params
-    params.require(:idea).permit(:title, :body, :quality)
+    params.permit(:title, :body)
   end
 end

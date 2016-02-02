@@ -6,20 +6,19 @@ class Api::V1::IdeasController < ApplicationController
   end
 
   def show
-    @idea = Idea.find_by(id: params[:id])
-    respond_with @idea
+    respond_with Idea.find_by(idea_params)
   end
 
   def create
-    respond_with Idea.create(idea_params)
   end
 
   def update
-    respond_with Idea.update( params[:id], idea_params )
   end
 
   def destroy
-    respond_with Idea.destroy(params[:id])
+    idea = Idea.find_by(idea_params)
+    idea.delete
+    respond_with true
   end
 
   private

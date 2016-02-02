@@ -12340,12 +12340,31 @@ return jQuery;
   };
 
 }).call(this);
+function deleteIdea() {
+  $('#ideas-index').delegate('#delete-idea', 'click', function() {
+    var idea = this.closest(".idea")
+
+    $.ajax({
+      type: 'DELETE',
+      url: '/api/v1/ideas/' + $(idea).attr('data-id'),
+      success: function() {
+        $(idea).remove()
+      },
+      error: function(xhr) {
+        console.log(xhr.responseText)
+      }
+    })
+  })
+}
+;
 function fetchIdeas() {
   $.ajax({
     type: "GET",
     url:  "/api/v1/ideas",
-    success: function(collection_of_ideas) {
-      renderIdeas(collection_of_ideas)
+    success: function(ideas) {
+      $.each(ideas, function(index, idea) {
+        renderIndex(idea)
+      })
     },
     error: function(xhr) {
       console.log(xhr.responseText)
@@ -12353,23 +12372,72 @@ function fetchIdeas() {
   })
 };
 
-function renderIdeas(collection_of_ideas) {
-  var rows = collection_of_ideas.slice(0, 5).map(function(idea) {
-    return (
-      "<table class='centered'>"
-      +"<tbody>"
-        +"<td><h5>"+ idea.title +"</h5></td>"
-        +"<td><h5>"+ idea.body +"</h5></td>"
-        +"<td><h5>"+ idea.quality +"</h5></td>"
-      +"</tbody>"
-      +"</table>"
-    )
-  })
-  $("#ideas-index").empty().append(rows)
+function renderIndex(idea) {
+  $("#ideas-index").append(
+    "<table class='centered'>"
+    +"<tbody class='idea' data-id='"+ idea.id +"'>"
+      +"<td id='idea-title'><h5>"+ idea.title +"</h5></td>"
+      +"<td id='idea-body'>"+ idea.body +"</td>"
+      +"<td id='idea-quality'><h5>"+ idea.quality +"</h5>"
+      +"<td><a class='waves-effect waves-teal btn-flat' id='edit-idea'>Edit</a><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+    +"</tbody>"
+    +"</table>"
+  )
 };
+
+function renderIdea(idea) {
+  $("#ideas-index").prepend(
+    "<table class='centered'>"
+    +"<tbody class='idea' data-id='"+ idea.id +"'>"
+      +"<td id='idea-title'><h5>"+ idea.title +"</h5></td>"
+      +"<td id='idea-body'>"+ idea.body +"</td>"
+      +"<td id='idea-quality'><h5>"+ idea.quality +"</h5>"
+      +"<td><a class='waves-effect waves-teal btn-flat' id='edit-idea'>Edit</a><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+    +"</tbody>"
+    +"</table>"
+  )
+};
+
+// <!-- QUALITY DROP DOWN MENU -->
+//  <select class="browser-default" id="idea-quality">
+//    <option value="0">Swill</option>
+//    <option value="1">Plausible</option>
+//    <option value="2">Genius</option>
+//  </select>
+;
+function createIdea() {
+  $("#create-idea").on("click", function() {
+    var ideaParams = {
+      title: $('#idea-title').val(),
+      body: $('#idea-body').val()
+    };
+
+    $.ajax({
+      type:    "POST",
+      url:     "/api/v1/ideas",
+      data:    ideaParams,
+      success: function(newIdea) {
+        renderIdea(newIdea)
+        resetForm();
+      },
+      error: function(xhr) {
+        console.log(xhr.responseText)
+      }
+    })
+  })
+};
+
+function resetForm(){
+  $('#idea-title').val('')
+  $('#idea-body').val('')
+};
+
+
 
 $(document).ready(function(){
   fetchIdeas();
+  createIdea();
+  deleteIdea();
 });
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.

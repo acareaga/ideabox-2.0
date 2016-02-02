@@ -18,7 +18,7 @@ class Api::V1::IdeasController < ApplicationController
   end
 
   def destroy
-    respond_with Idea.delete(params[:id])
+    respond_with Idea.delete(params[:id]), nil
   end
 
   private

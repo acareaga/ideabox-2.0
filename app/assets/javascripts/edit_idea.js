@@ -8,10 +8,7 @@ function editIdeaTitle() {
       var data = { title: this.textContent }
 
       event.preventDefault();
-
-      // $('.idea').class({
-      //   contenteditable: 'false'
-      // });
+      this.blur();
 
       $.ajax({
         type: 'PUT',
@@ -31,22 +28,21 @@ function editIdeaBody() {
     var enterKeyHit = event.which == 13
 
     if (enterKeyHit) {
-      var idea = this.closest('.idea')
-      var ideaId = $(idea).attr('data-id')
-      var data = { body: this.textContent }
+      var idea = this.closest('.idea');
+      var ideaId = $(idea).attr('data-id');
+      var data = { body: this.textContent };
 
       event.preventDefault();
-
-      // on keyup, this.blur function
+      this.blur();
 
       $.ajax({
         type: 'PUT',
         url: '/api/v1/ideas/' + ideaId,
         data: data,
-        success: function() {},
-        error: function(xhr) {
-          console.log(xhr.responseText)
-        }
+        // success: function() {},
+        // error: function(xhr) {
+        //   console.log(xhr.responseText)
+        // }
       })
     }
   })

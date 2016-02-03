@@ -7,13 +7,11 @@ function ideaSearch() {
 
     var hiddenIdeas = ideas.filter(function() {
       var titleAndBodyText = $(this).find('#idea-title, #idea-body')
-                                  .map((i, e) => $(e).text().toLowerCase())
-                                  .toArray()
-                                  .join()
-
+                                    .text()
+                                    .toLowerCase();
       return !(titleAndBodyText.includes(searchTerm));
     });
-
+    
     hiddenIdeas.addClass('invisible');
   })
 };

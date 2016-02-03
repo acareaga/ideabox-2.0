@@ -1,5 +1,4 @@
 <div class="container center">
-
   <div class="row">
     <div class="input-field">
       <input id="idea-title" type="text" class="validate">
@@ -16,8 +15,20 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col s6" id="ideas-index"></div>
-    <div class="col s6"></div>
+    <nav>
+      <div class="nav-wrapper ui-autocomplete-input">
+        <form>
+          <div class="input-field white">
+            <div class="ui-widget">
+              <input id="idea-search" type="search" required>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+
+  <div class="col s6" id="ideas-index"></div>
+  <div class="col s6"></div>
   </div>
+
 </div>

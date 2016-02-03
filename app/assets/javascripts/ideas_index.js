@@ -38,10 +38,3 @@ function renderIdea(idea) {
     +"</table>"
   )
 };
-
-// <!-- QUALITY DROP DOWN MENU -->
-//  <select class="browser-default" id="idea-quality">
-//    <option value="0">Swill</option>
-//    <option value="1">Plausible</option>
-//    <option value="2">Genius</option>
-//  </select>

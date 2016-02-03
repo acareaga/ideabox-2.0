@@ -17,10 +17,10 @@ function renderIndex(idea) {
   $("#ideas-index").append(
     "<table class='centered'>"
     +"<tbody class='idea' data-id='"+ idea.id +"'>"
-      +"<td id='idea-title'><h5>"+ idea.title +"</h5></td>"
-      +"<td id='idea-body'>"+ idea.body +"</td>"
-      +"<td id='idea-quality'><h5>"+ idea.quality +"</h5>"
-      +"<td><a class='waves-effect waves-teal btn-flat' id='edit-idea'>Edit</a><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+      +"<td id='idea-title' contenteditable='true'>"+ idea.title +"</td>"
+      +"<td id='idea-body' contenteditable='true'>"+ idea.body +"</td>"
+      +"<td id='idea-quality'>"+ idea.quality +""
+      +"<td><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
     +"</tbody>"
     +"</table>"
   )
@@ -30,10 +30,10 @@ function renderIdea(idea) {
   $("#ideas-index").prepend(
     "<table class='centered'>"
     +"<tbody class='idea' data-id='"+ idea.id +"'>"
-      +"<td id='idea-title'><h5>"+ idea.title +"</h5></td>"
-      +"<td id='idea-body'>"+ idea.body +"</td>"
+      +"<td id='idea-title' contenteditable='true'><h5>"+ idea.title +"</h5></td>"
+      +"<td id='idea-body' contenteditable='true'>"+ idea.body +"</td>"
       +"<td id='idea-quality'><h5>"+ idea.quality +"</h5>"
-      +"<td><a class='waves-effect waves-teal btn-flat' id='edit-idea'>Edit</a><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+      +"<td><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
     +"</tbody>"
     +"</table>"
   )

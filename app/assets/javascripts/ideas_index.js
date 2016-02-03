@@ -16,6 +16,7 @@ function fetchIdeas() {
 function renderIndex(idea) {
   $("#ideas-index").append(
     "<table class='centered'>"
+    +"</thead>"
     +"<tbody class='idea' data-id='"+ idea.id +"'>"
       +"<td id='idea-title' contenteditable='true'><h5>"+ idea.title +"</h5></td>"
       +"<td id='idea-body' contenteditable='true'>"+ idea.body +"</td>"

@@ -9,6 +9,10 @@ function editIdeaTitle() {
 
       event.preventDefault();
 
+      // $('.idea').class({
+      //   contenteditable: 'false'
+      // });
+
       $.ajax({
         type: 'PUT',
         url: '/api/v1/ideas/' + ideaId,
@@ -32,6 +36,8 @@ function editIdeaBody() {
       var data = { body: this.textContent }
 
       event.preventDefault();
+
+      // on keyup, this.blur function
 
       $.ajax({
         type: 'PUT',

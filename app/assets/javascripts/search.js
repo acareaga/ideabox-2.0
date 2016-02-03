@@ -1,16 +1,19 @@
 function ideaSearch() {
-  var $ideas = $('.idea');
+  $('#idea-search').keyup(function(event) {
+    var searchTerm       = $(this).val().toLowerCase();
+    var ideas            = $('#ideas-index').children();
 
-  $('#idea-search').on('change', function () {
-    var currentStatus = this.value;
-    $ideas.each(function (index, idea) {
-      $idea = $(idea);
-      debugger;
-      if ($idea.data('title') === currentStatus) {
-        $idea.show();
-      } else {
-        $idea.hide();
-      }
+    ideas.removeClass('invisible');
+
+    var hiddenIdeas = ideas.filter(function() {
+      var titleAndBodyText = $(this).find('#idea-title, #idea-body')
+                                  .map((i, e) => $(e).text().toLowerCase())
+                                  .toArray()
+                                  .join()
+
+      return !(titleAndBodyText.includes(searchTerm));
     });
-  });
+
+    hiddenIdeas.addClass('invisible');
+  })
 };

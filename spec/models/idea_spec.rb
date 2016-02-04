@@ -8,7 +8,7 @@ describe Idea do
     expect(ideas.count).to eq(20)
     expect(idea.title).to eq("Apple Computers")
     expect(idea.body).to eq("Start a computer company in the garage.")
-    expect(idea.quality).to eq(0)
+    expect(idea.quality).to eq("swill")
   end
 
   it "can only be created with valid attributes" do
@@ -16,12 +16,12 @@ describe Idea do
     expect(idea).to be_valid
 
     bad_idea = FactoryGirl.create(:idea)
-    bad_idea.quality = nil
+    bad_idea.title = nil
     expect(bad_idea).to_not be_valid
   end
 
   it "has a default quality of the integer zero" do
     idea = FactoryGirl.create(:idea)
-    expect(idea.quality).to eq(0)
+    expect(idea.quality).to eq("swill")
   end
 end

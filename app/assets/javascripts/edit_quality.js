@@ -12,19 +12,18 @@ var decreaseQuality = {
 
 function increaseIdeaQuality() {
   $('#ideas-index').delegate('.increase-idea-quality', 'click', function() {
-    var idea    = this.closest('.idea');
-    var idea2    = $(this).closest('.idea');
-    var ideaId  = idea.attributes[1].nodeValue;
-    var quality = idea.attributes[2].nodeValue;
-    var data = { quality: increaseQuality[quality] };
-    var qualityText = idea2.find('#idea-quality')
+    var idea    = $(this).closest('.idea');
+    var ideaId  = idea.attr('data-id');
+    var quality = idea.find('#idea-quality');
+    var qualityText = quality.text();
+    var data = { quality: increaseQuality[qualityText] };
 
     $.ajax({
       type: 'PUT',
       url: '/api/v1/ideas/' + ideaId,
       data: data,
       success: function() {
-        qualityText.text(increaseQuality[quality]);
+        quality.text(increaseQuality[qualityText]);
       }
     })
   })
@@ -32,19 +31,18 @@ function increaseIdeaQuality() {
 
 function decreaseIdeaQuality() {
   $('#ideas-index').delegate('.decrease-idea-quality', 'click', function() {
-    var idea    = this.closest('.idea');
-    var idea2    = $(this).closest('.idea');
-    var ideaId  = idea.attributes[1].nodeValue;
-    var quality = idea.attributes[2].nodeValue;
-    var data = { quality: decreaseQuality[quality] };
-    var qualityText = idea2.find('#idea-quality')
+    var idea    = $(this).closest('.idea');
+    var ideaId  = idea.attr('data-id');
+    var quality = idea.find('#idea-quality');
+    var qualityText = quality.text();
+    var data = { quality: decreaseQuality[qualityText] };
 
     $.ajax({
       type: 'PUT',
       url: '/api/v1/ideas/' + ideaId,
       data: data,
       success: function() {
-        qualityText.text(decreaseQuality[quality]);
+        quality.text(decreaseQuality[qualityText]);
       }
     })
   })

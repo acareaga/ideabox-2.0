@@ -7,5 +7,4 @@ $(document).ready(function(){
   ideaSearch();
   increaseIdeaQuality();
   decreaseIdeaQuality();
-  // truncateIdeaBody();
 });

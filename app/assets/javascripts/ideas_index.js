@@ -19,7 +19,7 @@ function renderIndex(idea) {
     +"</thead>"
     +"<tbody class='idea' data-id='"+ idea.id +"' data-quality='"+ idea.quality +"'>"
       +"<td id='idea-title' contenteditable='true'>"+ idea.title +"</td>"
-      +"<td id='idea-body' contenteditable='true'>"+ idea.body +"</td>"
+      +"<td id='idea-body' contenteditable='true'>"+ truncateIdeaBody(idea.body) +"</td>"
       +"<td id='idea-quality'>"+ idea.quality +"</td>"
       +"<td><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
       +"<td><a class='waves-effect waves-teal btn-flat increase-idea-quality'>+</a></td>"
@@ -35,7 +35,7 @@ function renderIdea(idea) {
     +"</thead>"
     +"<tbody class='idea' data-id='"+ idea.id +"' data-quality='"+ idea.quality +"'>"
       +"<td id='idea-title' contenteditable='true'>"+ idea.title +"</td>"
-      +"<td id='idea-body' contenteditable='true'>"+ idea.body +"</td>"
+      +"<td id='idea-body' contenteditable='true'>"+ truncateIdeaBody(idea.body) +"</td>"
       +"<td id='idea-quality'>"+ idea.quality +"</td>"
       +"<td><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
       +"<td><a class='waves-effect waves-teal btn-flat increase-idea-quality'>+</a></td>"
@@ -45,15 +45,14 @@ function renderIdea(idea) {
   )
 };
 
-// function truncateIdeaBody(string) {
-//   debugger;
-//   if (string.length > 100) {
-//       return $.trim(string)
-//               .substring(0, 100)
-//               .split(" ")
-//               .slice(0, -1)
-//               .join(" ") + "...";
-//   } else {
-//     return string;
-//   }
-// };
+function truncateIdeaBody(string) {
+  if (string.length > 100) {
+      return $.trim(string)
+              .substring(0, 100)
+              .split(" ")
+              .slice(0, -1)
+              .join(" ") + "...";
+  } else {
+    return string;
+  }
+};

@@ -8,13 +8,12 @@ describe 'dashboard show', js: true do
     page.fill_in 'idea-body', with: "Let's start a computer company in the garage."
 
     click_button 'create-idea'
-    sleep(2.second)
 
-    expect(page).to have_content("Apple Computers")
-    expect(page).to have_content("Lets start a computer company in the garage.")
+    expect(page).to have_css("#idea-title")
+    expect(page).to have_css("#idea-body")
   end
 
-  xit 'deletes an idea from the index' do
+  it 'deletes an idea from the index' do
     visit root_path
 
     page.fill_in 'idea-title', with: "Apple Computers"
@@ -22,17 +21,30 @@ describe 'dashboard show', js: true do
 
     click_button 'create-idea'
 
+    expect(page).to have_css("#delete-idea")
   end
 
-  xit 'can update the title and body of an idea' do
+  it 'can update the title and body of an idea' do
+    visit root_path
 
+    page.fill_in 'idea-title', with: "Apple Computers"
+    page.fill_in 'idea-body', with: "Let's start a computer company in the garage."
+
+    click_button 'create-idea'
+
+    expect(page).to have_css("#idea-title")
+    expect(page).to have_css("#idea-body")
   end
 
-  xit 'truncates an idea body over 100 characters' do
+  it 'can change the quality of an idea' do
+    visit root_path
 
-  end
+    page.fill_in 'idea-title', with: "Apple Computers"
+    page.fill_in 'idea-body', with: "Let's start a computer company in the garage."
 
-  xit 'can change the quality of an idea' do
+    click_button 'create-idea'
 
+    expect(page).to have_css(".increase-idea-quality")
+    expect(page).to have_css(".decrease-idea-quality")
   end
 end

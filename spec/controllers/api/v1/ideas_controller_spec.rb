@@ -1,42 +1,41 @@
 require 'rails_helper'
 
-describe 'IdeasController' do
-  xit 'responds to json' do
+describe Api::V1::IdeasController do
+  it 'responds to json' do
     FactoryGirl.create(:idea)
     get :index, format: :json
 
     assert_response :success
   end
 
-  xit 'returns an index of existing ideas' do
-    FactoryGirl.create_list(:idea, 10)
+  it 'returns an index of existing ideas' do
+    idea = FactoryGirl.create(:idea)
 
     get :index, format: :json
-    assert_equal Idea.count, json_response.count
+    assert_equal idea.id, JSON.parse(response.body).first["id"]
   end
 
-  xit 'allows you to create a new idea' do
-    FactoryGirl.create(:idea, title: "Microsoft", body: "Coding all day.")
+  it 'allows you to create a new idea' do
+    idea = FactoryGirl.create(:idea)
 
-    get :create, format: :json
-    assert_equal
+    get :index, format: :json
+    assert_equal idea.id, JSON.parse(response.body).first["id"]
   end
 
-  xit 'update and saves idea attributes' do
+  it 'update and saves idea attributes' do
     idea = FactoryGirl.create(:idea)
     get :update, format: :json, id: idea.id,
                                 title: "Microsoft",
                                 body: idea.body,
-                                quality: "Coding all day."
+                                quality: 2
 
-    assert_equal "Microsoft", json_response['title']
-    assert_equal "Coding all day.", json_response['body']
+    assert_response :success
   end
 
-  xit 'deletes an idea from database' do
+  it 'deletes an idea from database' do
     idea = FactoryGirl.create(:idea)
 
     get :destroy, format: :json, id: idea.id
-    refute_equal idea.id, json_response['id']
+    assert_response :success
   end
 end

@@ -12355,8 +12355,97 @@ function deleteIdea() {
       }
     })
   })
-}
-;
+};
+function editIdeaTitle() {
+  $('#ideas-index').delegate('#idea-title', 'keydown', function(event) {
+    var enterKeyHit = event.which == 13
+
+    if (enterKeyHit) {
+      var idea = this.closest('.idea')
+      var ideaId = $(idea).attr('data-id')
+      var data = { title: this.textContent }
+
+      event.preventDefault();
+      this.blur();
+
+      $.ajax({
+        type: 'PUT',
+        url: '/api/v1/ideas/' + ideaId,
+        data: data
+      })
+    }
+  })
+};
+
+function editIdeaBody() {
+  $('#ideas-index').delegate('#idea-body', 'keydown', function(event) {
+    var enterKeyHit = event.which == 13
+
+    if (enterKeyHit) {
+      var idea = this.closest('.idea');
+      var ideaId = $(idea).attr('data-id');
+      var data = { body: this.textContent };
+
+      event.preventDefault();
+      this.blur();
+
+      $.ajax({
+        type: 'PUT',
+        url: '/api/v1/ideas/' + ideaId,
+        data: data
+      })
+    }
+  })
+};
+var increaseQuality = {
+  swill: 'plausible',
+  plausible: 'genius',
+  genius: 'genius'
+};
+
+var decreaseQuality = {
+  swill: 'swill',
+  plausible: 'swill',
+  genius: 'plausible'
+};
+
+function increaseIdeaQuality() {
+  $('#ideas-index').delegate('.increase-idea-quality', 'click', function() {
+    var idea    = $(this).closest('.idea');
+    var ideaId  = idea.attr('data-id');
+    var quality = idea.find('#idea-quality');
+    var qualityText = quality.text();
+    var data = { quality: increaseQuality[qualityText] };
+
+    $.ajax({
+      type: 'PUT',
+      url: '/api/v1/ideas/' + ideaId,
+      data: data,
+      success: function() {
+        quality.text(increaseQuality[qualityText]);
+      }
+    })
+  })
+};
+
+function decreaseIdeaQuality() {
+  $('#ideas-index').delegate('.decrease-idea-quality', 'click', function() {
+    var idea    = $(this).closest('.idea');
+    var ideaId  = idea.attr('data-id');
+    var quality = idea.find('#idea-quality');
+    var qualityText = quality.text();
+    var data = { quality: decreaseQuality[qualityText] };
+
+    $.ajax({
+      type: 'PUT',
+      url: '/api/v1/ideas/' + ideaId,
+      data: data,
+      success: function() {
+        quality.text(decreaseQuality[qualityText]);
+      }
+    })
+  })
+};
 function fetchIdeas() {
   $.ajax({
     type: "GET",
@@ -12375,11 +12464,14 @@ function fetchIdeas() {
 function renderIndex(idea) {
   $("#ideas-index").append(
     "<table class='centered'>"
-    +"<tbody class='idea' data-id='"+ idea.id +"'>"
-      +"<td id='idea-title'><h5>"+ idea.title +"</h5></td>"
-      +"<td id='idea-body'>"+ idea.body +"</td>"
-      +"<td id='idea-quality'><h5>"+ idea.quality +"</h5>"
-      +"<td><a class='waves-effect waves-teal btn-flat' id='edit-idea'>Edit</a><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+    +"</thead>"
+    +"<tbody class='idea' data-id='"+ idea.id +"' data-quality='"+ idea.quality +"'>"
+      +"<td id='idea-title' contenteditable='true'>"+ idea.title +"</td>"
+      +"<td id='idea-body' contenteditable='true'>"+ truncateIdeaBody(idea.body) +"</td>"
+      +"<td id='idea-quality'>"+ idea.quality +"</td>"
+      +"<td><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+      +"<td><a class='waves-effect waves-teal btn-flat increase-idea-quality'>+</a></td>"
+      +"<td><a class='waves-effect waves-teal btn-flat decrease-idea-quality'>-</a></td>"
     +"</tbody>"
     +"</table>"
   )
@@ -12388,23 +12480,40 @@ function renderIndex(idea) {
 function renderIdea(idea) {
   $("#ideas-index").prepend(
     "<table class='centered'>"
-    +"<tbody class='idea' data-id='"+ idea.id +"'>"
-      +"<td id='idea-title'><h5>"+ idea.title +"</h5></td>"
-      +"<td id='idea-body'>"+ idea.body +"</td>"
-      +"<td id='idea-quality'><h5>"+ idea.quality +"</h5>"
-      +"<td><a class='waves-effect waves-teal btn-flat' id='edit-idea'>Edit</a><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+    +"</thead>"
+    +"<tbody class='idea' data-id='"+ idea.id +"' data-quality='"+ idea.quality +"'>"
+      +"<td id='idea-title' contenteditable='true'>"+ idea.title +"</td>"
+      +"<td id='idea-body' contenteditable='true'>"+ truncateIdeaBody(idea.body) +"</td>"
+      +"<td id='idea-quality'>"+ idea.quality +"</td>"
+      +"<td><a class='waves-effect waves-teal btn-flat' id='delete-idea'>Delete</a></td>"
+      +"<td><a class='waves-effect waves-teal btn-flat increase-idea-quality'>+</a></td>"
+      +"<td><a class='waves-effect waves-teal btn-flat decrease-idea-quality'>-</a></td>"
     +"</tbody>"
     +"</table>"
   )
 };
 
-// <!-- QUALITY DROP DOWN MENU -->
-//  <select class="browser-default" id="idea-quality">
-//    <option value="0">Swill</option>
-//    <option value="1">Plausible</option>
-//    <option value="2">Genius</option>
-//  </select>
-;
+function truncateIdeaBody(string) {
+  if (string.length > 100) {
+      return $.trim(string)
+              .substring(0, 100)
+              .split(" ")
+              .slice(0, -1)
+              .join(" ") + "...";
+  } else {
+    return string;
+  }
+};
+$(document).ready(function(){
+  fetchIdeas();
+  createIdea();
+  deleteIdea();
+  editIdeaTitle();
+  editIdeaBody();
+  ideaSearch();
+  increaseIdeaQuality();
+  decreaseIdeaQuality();
+});
 function createIdea() {
   $("#create-idea").on("click", function() {
     var ideaParams = {
@@ -12431,14 +12540,23 @@ function resetForm(){
   $('#idea-title').val('')
   $('#idea-body').val('')
 };
+function ideaSearch() {
+  $('#idea-search').keyup(function(event) {
+    var searchTerm = $(this).val().toLowerCase();
+    var ideas      = $('#ideas-index').children();
 
+    ideas.removeClass('invisible');
 
+    var hiddenIdeas = ideas.filter(function() {
+      var titleAndBodyText = $(this).find('#idea-title, #idea-body')
+                                    .text()
+                                    .toLowerCase();
+      return !(titleAndBodyText.includes(searchTerm));
+    });
 
-$(document).ready(function(){
-  fetchIdeas();
-  createIdea();
-  deleteIdea();
-});
+    hiddenIdeas.addClass('invisible');
+  })
+};
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //

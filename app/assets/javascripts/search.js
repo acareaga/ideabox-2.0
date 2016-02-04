@@ -1,7 +1,7 @@
 function ideaSearch() {
   $('#idea-search').keyup(function(event) {
-    var searchTerm       = $(this).val().toLowerCase();
-    var ideas            = $('#ideas-index').children();
+    var searchTerm = $(this).val().toLowerCase();
+    var ideas      = $('#ideas-index').children();
 
     ideas.removeClass('invisible');
 
@@ -11,7 +11,7 @@ function ideaSearch() {
                                     .toLowerCase();
       return !(titleAndBodyText.includes(searchTerm));
     });
-    
+
     hiddenIdeas.addClass('invisible');
   })
 };

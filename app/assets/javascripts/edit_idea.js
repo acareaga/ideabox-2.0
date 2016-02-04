@@ -13,11 +13,7 @@ function editIdeaTitle() {
       $.ajax({
         type: 'PUT',
         url: '/api/v1/ideas/' + ideaId,
-        data: data,
-        success: function() {},
-        error: function(xhr) {
-          console.log(xhr.responseText)
-        }
+        data: data
       })
     }
   })
@@ -38,11 +34,7 @@ function editIdeaBody() {
       $.ajax({
         type: 'PUT',
         url: '/api/v1/ideas/' + ideaId,
-        data: data,
-        // success: function() {},
-        // error: function(xhr) {
-        //   console.log(xhr.responseText)
-        // }
+        data: data
       })
     }
   })

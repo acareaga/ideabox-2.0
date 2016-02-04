@@ -21,6 +21,6 @@ function createIdea() {
 };
 
 function resetForm(){
-  $('#idea-title').val('')
-  $('#idea-body').val('')
+  $('#idea-title').val('');
+  $('#idea-body').val('');
 };

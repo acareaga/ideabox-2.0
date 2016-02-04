@@ -11,12 +11,16 @@ describe Idea do
     expect(idea.quality).to eq("swill")
   end
 
-  it "can only be created with valid attributes" do
+  it "can be created with valid attributes" do
     idea = FactoryGirl.create(:idea)
-    expect(idea).to be_valid
 
+    expect(idea).to be_valid
+  end
+
+  it "cannot be created with attributes missing or nil" do
     bad_idea = FactoryGirl.create(:idea)
     bad_idea.title = nil
+
     expect(bad_idea).to_not be_valid
   end
 

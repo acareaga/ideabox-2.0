@@ -6,6 +6,8 @@ body {
  min-height: 100vh;
  flex-direction: column;
  background-color: #f1f1f1;
+ font-size: 20px;
+ font-weight: 350;
 }
 
 main {
@@ -28,6 +30,16 @@ nav {
 
 .invisible {
   display: none;
+}
+
+.increase-idea-quality {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.decrease-idea-quality {
+  font-size: 32px;
+  font-weight: bold;
 }
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
